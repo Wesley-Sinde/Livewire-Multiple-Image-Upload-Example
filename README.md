@@ -1,64 +1,246 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400"></a></p>
+<p align="center"><a href="https://wesley.io.ke" target="_blank"><img src="https://laratutorials.com/wp-content/uploads/2022/02/Laravel-9-Livewire-Multiple-Image-Upload-Example-1024x499.jpg" width="400"></a></p>
+<h1>Laravel 9 Livewire Multiple Image Upload Example </h1>
+Laravel 9 livewire multiple image upload; Through this tutorial, i am going to show you how to upload multiple image using livewire in laravel 9 apps.
 
-<p align="center">
-<a href="https://travis-ci.org/laravel/framework"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
 
-## About Laravel
+<h2>Laravel 9 Livewire Multiple Image Upload Example</h2>
+Follow the below given steps to upload multiple image using livewire in laravel 9 apps:
+```php
+Step 1 – Install Laravel 9 Application
+Step 2 – Database Configuration
+Step 3 – Create Model & Migration
+Step 4 – Create Multi Upload Routes
+Step 5 – Installing Livewire Package
+Step 6 – Build Livewire Multiple Image Upload Components
+Step 7 – Create Livewire Blade Views
+Step 8 – Start Development Server
+Step 9 – Run This App On Browser
+Step 1 – Install Laravel 9 Application
+Go to your local web server directory using the following command:
+```
+//for windows user
+cd xampp/htdocs
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+//for ubuntu user
+cd var/www/html
+Then install laravel 9 latest application using the following command:
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+composer create-project --prefer-dist laravel/laravel blog
+Step 2 – Database Configuration
+Open downloaded laravel app into any text editor. Then find .env file and configure database detail like following:
+```php
+DB_CONNECTION=mysql
+DB_HOST=127.0.0.1
+DB_PORT=3306
+DB_DATABASE=db name
+DB_USERNAME=db user name
+DB_PASSWORD=db password
+```
+Step 3 – Create Model & Migration
+Run the following command on command prompt to create model and migration file:
 
-## Learning Laravel
+php artisan make:model Image -m
+The above command will create two files into your laravel livewire multiple image upload application, which is located inside the following locations:
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 1500 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+/app/Models/Image.php
+/database/migrations/create_contacts_table.php
+Now, find Image.php model file inside /app/Models directory. And open it then add the fillable property code into Image.php file, like following:
+```php
+<?php
+namespace App\Models;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Database\Eloquent\Model;
+class Image extends Model
+{
+    use HasFactory;
+    protected $fillable = [
+        'title'
+    ];
+}
+Then, find create_images_table.php file inside /database/migrations/ directory. Then open this file and add the following code into function up() on this file:
 
-## Laravel Sponsors
+    public function up()
+    {
+        Schema::create('contacts', function (Blueprint $table) {
+            $table->id();
+            $table->string('title');
+            $table->timestamps();
+        });
+        
+    }
+    ```
+Now, open again your terminal and type the following command on cmd to create tables into your selected database:
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
+```php
+php artisan migrate
+```
+Step 4 – Create Multi Upload Routes
+To open your web.php file, which is located inside routes directory. Then add the following routes into web.php file:
 
-### Premium Partners
+use App\Http\Livewire\MultipleImageUpload;
+Route::get('livewire-multiple-image-upload', MultipleImageUpload::class);
+Step 5 – Installing Livewire Package
+Run following command on command prompt to install livewire package in laravel 9 app:
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
+composer require livewire/livewire
+Then install node js package:
+```php
+npm install
+Next run npm
 
-## Contributing
+npm run dev
+```
+Now, run database migration command:
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+php artisan migrate
+Step 6 – Build Livewire Multiple Image Upload Components
+Run following command on command prompt to create livewire components in laravel 9 app:
+```php
+php artisan make:livewire MultipleImageUpload
+```
+The above command will create two files, which is located on the following locations:
 
-## Code of Conduct
+app/Http/Livewire/MultipleImageUpload.php
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+resources/views/livewire/multiple-image-upload.blade.php
+So, open MultipleImageUpload.php, which is located inside app/http/Livewire directory and add the following code into it:
 
-## Security Vulnerabilities
+```php
+<?php
+namespace App\Http\Livewire;
+use Livewire\Component;
+use Livewire\WithFileUploads;
+use App\Models\Image;
+class MultipleImageUpload extends Component
+{
+    use WithFileUploads;
+    public $images = [];
+    public function render()
+    {
+        return view('livewire.home');
+    }
+    public function store()
+    {
+        $this->validate([
+            'images.*' => 'image|max:1024', // 1MB Max
+        ]);
+        foreach ($this->images as $key => $image) {
+            $this->images[$key] = $image->store('images','public');
+        }
+        $this->images = json_encode($this->images);
+        Image::create(['title' => $this->images]);
+        session()->flash('message', 'Images has been successfully Uploaded.');
+        return redirect()->to('/livewire-multiple-image-upload');
+    }
+}
+```
+Next, open multiple-image-upload.blade.php, which is located inside resources/views/livewire/ directory and add the following code into it:
+```php
+<div>
+    <form>
+        <div class=" add-input">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="form-group">
+                        <input type="file" class="form-control" wire:model="images" multiple>
+                        @error('image.*') <span class="text-danger error">{{ $message }}</span>@enderror
+                    </div>
+                </div>
+                <div class="col-md-12 text-center">
+                    <button class="btn text-white btn-success" wire:click.prevent="store">Save</button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+```
+Step 7 – Create Blade View
+Go to resources/views/livewire directory and create home.blade.php. Then add the following code into it:
+```php
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+    <head>
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Laravel 9 Livewire Multiple Image Upload Tutorial - wesley sinde</title>
+        <!-- Fonts -->
+        <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.1/css/bootstrap.min.css">
+        <!-- Styles -->
+        <style>
+            html, body {
+                background-color: #fff;
+                color: #636b6f;
+                font-family: 'Nunito', sans-serif;
+                font-weight: 200;
+                height: 100vh;
+                margin: 0;
+            }
+            .full-height {
+                height: 100vh;
+            }
+            .flex-center {
+                align-items: center;
+                display: flex;
+                justify-content: center;
+            }
+            .position-ref {
+                position: relative;
+            }
+            .top-right {
+                position: absolute;
+                right: 10px;
+                top: 18px;
+            }
+            .content {
+                text-align: center;
+            }
+            .title {
+                font-size: 84px;
+            }
+            .links > a {
+                color: #636b6f;
+                padding: 0 25px;
+                font-size: 13px;
+                font-weight: 600;
+                letter-spacing: .1rem;
+                text-decoration: none;
+                text-transform: uppercase;
+            }
+            .m-b-md {
+                margin-bottom: 30px;
+            }
+        </style>
+    </head>
+<body>
+    <div class="container mt-5">
+        <div class="row mt-5 justify-content-center">
+            <div class="mt-5 col-md-8">
+                <div class="card">
+                  <div class="card-header bg-success">
+                    <h2 class="text-white">Laravel 9 Livewire Multiple Image Upload Example - wesley sinde</h2>
+                  </div>
+                  <div class="card-body">
+                    @livewire('image-upload')
+                  </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    @livewireScripts
+</body>
+</html>
+```
+Step 8 – Start Development Server
+Run the following command on command prompt to start development server for your simple laravel 9 livewire multiple image upload app:
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+```php
+php artisan serve
+```
+Step 9 – Run This App On Browser
+In step 9, open your browser and fire the following url into your browser:
+```php
+http://127.0.0.1:8000/livewire-multiple-image-upload
+```
